@@ -1,4 +1,4 @@
-make_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.0.0)
 
 set(CMAKE_BUILD_TYPE Release)
 
@@ -20,13 +20,12 @@ else()
     set(OUTPUT_PATH "${PROJECT_SOURCE_DIR}/build/linux/${CPUARCH}")
 endif()
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${OUTPUT_PATH})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${OUTPUT_PATH})
 
 file(GLOB_RECURSE SRC "${PROJECT_SOURCE_DIR}/src/*.cpp")
 add_library(datetime STATIC ${SRC})
 
-target_include_directories(datetime PRIVATE "${PROJECT_SOURCE_DIR}/include")
+target_include_directories(datetime PUBLIC "${PROJECT_SOURCE_DIR}/include")
 
 target_compile_features(datetime
     PRIVATE
@@ -36,8 +35,10 @@ target_compile_features(datetime
     cxx_final
 )
 
-install(TARGETS datetime
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib
-        INCLUDES DESTINATION include
+install(TARGETS datetime LIBRARY DESTINATION lib)
+
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/include/DateTime"
+        DESTINATION "include"
+        FILES_MATCHING
+        PATTERN "*.h"
 )
