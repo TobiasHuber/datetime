@@ -25,8 +25,8 @@ int main()
 
     if(time > timeFromTimestamp)
     {
-        std::cout << dt::unix2stamp(time 'T', dt::TimestampPrecision::MILLISECONDS) << " > ";
-        std::cout << dt::unix2stamp(timeFromTimestamp 'T', dt::TimestampPrecision::MILLISECONDS) << std::endl;
+        std::cout << dt::unix2stamp(time 'T', dt::TimestampPrecision::MILLISECONDS);
+        std::cout << " > " << timestamp << std::endl;
     }
 
     dt::Date date = Date::fromTime(time);
